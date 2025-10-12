@@ -1,56 +1,87 @@
-#include<stdio.h>
-char stack[5];
-int top =-1;
-void push(char ch){
-    if(top >= 4){
+#include <stdio.h>
+#define N 5
+
+char stack[N];
+int top = -1;
+
+void push(char ch) {
+    if (top == N - 1) {
         printf("Stack overflow\n");
         return;
     }
     stack[++top] = ch;
+    printf("Pushed '%c' onto stack.\n", ch);
 }
-char pop(){
-    if(top==-1){
-        printf("Stack underflow");
-        return " ";
+
+void pop() {
+    if (top == -1) {
+        printf("Stack underflow\n");
+        return;
     }
-    return stack [top--];
+    printf("Popped element: %c\n", stack[top--]);
 }
-char peek(){
-    return stack [top];
-}
-char display(){
-    for(int i =0;i<=top;i++){
-        printf("%c",stack[i]);
+
+char peek() {
+    if (top == -1) {
+        printf("Stack is empty\n");
+        return '\0';
     }
+    printf("Top element: %c\n", stack[top]);
+    return stack[top];
 }
-int main(){
-    int x,element;
-    printf(" 1 : push 2:peek 3:pop 4:display 5:exit");
-    scanf("%d",&x);
-    while(x!=5){
+
+void display() {
+    if (top == -1) {
+        printf("Stack is empty\n");
+        return;
+    }
+    printf("Stack elements: ");
+    for (int i = 0; i <= top; i++) {
+        printf("%c ", stack[i]);
+    }
+    printf("\n");
+}
+
+int main() {
+    int x;
+    char element;
+
+    printf("\n1: Push  2: Peek  3: Pop  4: Display  5: Exit\n");
+    printf("Enter your choice: ");
+    scanf("%d", &x);
+
+    while (x != 5) {
         switch (x) {
             case 1:
-                {printf("Enter an element to push (single character): ");
-                scanf(" %c", &element);  // Note the space before %c to consume any newline
+                printf("Enter an element to push (single character): ");
+                scanf(" %c", &element);  // space before %c consumes newline
                 push(element);
-                break;}
+                break;
+
             case 2:
-                {peek();
-                break;}
-            case 3:{
-                printf("Popped element: %c\n", pop());
-                break;}
+                peek();
+                break;
+
+            case 3:
+                pop();
+                break;
+
             case 4:
-                {display();
-                break;}
+                display();
+                break;
+
             case 5:
-                {printf("Exiting...\n");
-                break;}
+                printf("Exiting...\n");
+                break;
+
             default:
-                {printf("Wrong choice! Please try again.\n");
-                break;}
+                printf("Wrong choice! Please try again.\n");
+                break;
         }
-        printf(" 1 : push 2:peek 3:pop 4:display 5:exit");
-        scanf("%d",&x);
+        printf("\n1: Push  2: Peek  3: Pop  4: Display  5: Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &x);
     }
+
+    return 0;
 }
